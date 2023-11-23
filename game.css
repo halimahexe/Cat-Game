@@ -27,13 +27,12 @@ h1 {
     border-radius: 10px;
     text-align: center;
     display: grid;
-    grid-template-rows: 3(1fr 2fr 2fr);
-    /* grid-template-rows: ; */
+    /* grid-template-rows: 3(1fr 2fr 2fr); */
 }
 
 /* Stats Bar */
 .stats {
-    padding: 2%;
+    padding: 2% 3%;
     display: flex;
     justify-content: space-between;
     text-transform: uppercase;
@@ -52,7 +51,7 @@ h1 {
 
 .stats p:not(:last-of-type){
     border-right: 1px solid #ffd449;
-    padding-right: 20px;
+    padding-right: 30px;
 }
 
 /* Cat window with interactive buttons */
@@ -123,6 +122,21 @@ h1 {
     padding: 10px;
 }
 
+.text .user-input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text .user-input input {
+    margin: 0 auto;
+    border-radius: 10px;
+    padding: 5px;
+    height: 40px;
+    text-align: center;
+    font-family: inherit;
+}
+
 .btn-container {
     padding: 5px;
     display: flex;
@@ -141,5 +155,5 @@ h1 {
 
 /* Class to hide elements with javascript */
 .hidden {
-    display: none;
+    display: none !important;
 }
