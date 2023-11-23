@@ -10,18 +10,35 @@
     <h1>Pet Simulator Game</h1>
     <div class="grid-container">
         <div class="stats">
-            <p>energy <span>100</span></p>
-            <p>health <span>100</span></p>
-            <p>happiness <span>100</span></p>
-            <p>fullness <span>100</span></p>
-            <p>bond <span>100</span></p>
+            <p>energy<span id="energyText">100</span></p>
+            <p>health<span id="healthText">100</span></p>
+            <p>happiness<span id="happyText">100</span></p>
+            <p>fullness<span id="fullText">100</span></p>
+            <p>bond<span id="bondText">100</span></p>
         </div>
         <div class="cat-interaction">
-
+            <div class="cat">
+                <div class="time">
+                    <p>Day<span id="dayText">1</span></p>
+                    <p>Actions<span id="actionText">6</span></p>
+                </div>
+                <div class="cat-pic">
+                    
+                </div>
+            </div>
+            <div class="interact">
+                <button id="interact-btn1">Feed</button>
+                <button id="interact-btn2">Pet</button>
+                <button id="interact-btn3">Play</button>
+                <button id="interact-btn4">Care</button>
+            </div>
         </div>
         <div class="text">
             <p class="intro">Welcome to Pet Simulator, the stray cat agency that distributes your dream cat to you. To match you to the perfect cat, please answer the following questions.</p>
             <p class="question">I have always wanted a cat that is...</p>
+            <div class="user-input hidden">
+                <input type="text"></input>
+            </div>
             <div class="btn-container">
                 <button id="btn1">Black</button>
                 <button id="btn2">Orange</button>

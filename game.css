@@ -11,12 +11,15 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
+    color: #323031;
+    background-color: hsl(270, 100%, 80%);
 }
 
 h1 {
     padding: 10px;
 }
 
+/* Overall Container */
 .grid-container {
     height: 500px;
     width: 500px;
@@ -28,39 +31,115 @@ h1 {
     /* grid-template-rows: ; */
 }
 
+/* Stats Bar */
 .stats {
     padding: 2%;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     text-transform: uppercase;
-    border-bottom: 1px solid;
     border-radius: 10px 10px 0 0;
-    background-color: hsl(270, 100%, 80%);
+    background-color: rgb(127, 0, 255);
     width: inherit;
-    height: 35%;
+    height: 50px;
+    color: #ffffff;
+    font-weight: bold;
 }
 
 .stats span {
     display: block;
-    font-weight: bold;
+    font-size: 1.1rem;
 }
 
 .stats p:not(:last-of-type){
-    border-right: 1px solid;
+    border-right: 1px solid #ffd449;
+    padding-right: 20px;
 }
 
+/* Cat window with interactive buttons */
 .cat-interaction {
+    height: 260px;
+    width: 500px;
+    /* padding: 10px; */
+    display: grid;
+    grid-template-columns: repeat(2, auto);
 }
 
+.cat-interaction .cat {
+    border: 1px solid;
+}
+
+.cat-interaction .cat .time {
+    display: flex;
+    width: 135px;
+    justify-content: space-around;
+    padding: 5px;
+    background-color: #323031;
+    color: #ffffff;
+    margin-left: 52.5px;
+}
+
+.time p:not(:last-of-type) {
+    border-right: 1px solid;
+    padding-right: 10px;
+}
+
+.time span {
+    display: block;
+}
+
+.cat-interaction .cat {
+    height: 260px;
+    width: 250px;
+}
+
+.cat-interaction .interact {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    grid-template-rows: repeat(2, auto);
+    padding: 10px;
+}
+
+.interact button {
+    height: 100px;
+    aspect-ratio: 1;
+    background-color: #ffd449;
+    border-radius: 10px;
+    font-size: 1rem;
+}
+
+/* Game text section */
 .text {
     width: 500px;
-    height: 175px;
-    border: 1px solid;
+    height: 190px;
     text-align: justify;
-    padding: 10px;
-    background-color: ;
+    background-color: rgb(127, 0, 255);
+    color: #ffffff;
+    font-weight: 600;
+    border-radius: 0 0 10px 10px;
 }
 
 .text p {
-    margin: 15px auto;
+    margin: auto;
+    padding: 10px;
+}
+
+.btn-container {
+    padding: 5px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.btn-container button {
+    background-color: #ffd449;
+    padding: 5px;
+    color: #323031;
+    font-weight: bold;
+    height: 40px;
+    width: 80px;
+    border-radius: 10px;
+}
+
+/* Class to hide elements with javascript */
+.hidden {
+    display: none;
 }
