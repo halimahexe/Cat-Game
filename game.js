@@ -51,7 +51,11 @@ const types = [{
     multiplier: [0.5],
 }] // have an idea to make a multiplier dependent on type of cat chosen but not sure how to access/apply this in the game yet
 
-const interactions = [];
+const gameBtns = [{
+
+}] // This will ideally have the different buttons that will sit on the bottom of the game, with start/restart and other functions like that
+
+const interactions = []; // I want to make interactions more complicated but not sure how to do that yet
 
 interact1.onclick = feed;
 interact2.onclick = pet;
