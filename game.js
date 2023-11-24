@@ -26,7 +26,8 @@ const cats = [{
 }, {
     type: "aloof"
 }, {
-    type: "needy"
+    type: "needy",
+    interactions: []
 }];
 
 const interactions = [];
