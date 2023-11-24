@@ -61,7 +61,6 @@ h1 {
 .cat-interaction {
     height: 260px;
     width: 500px;
-    /* padding: 10px; */
     display: flex;
     flex: 1 1 auto;
 }
@@ -69,6 +68,7 @@ h1 {
 .cat-interaction .cat {
     border: 1px solid;
 }
+/* Temporarily have a border here to help me place the cat picture when I get to that */
 
 .cat-interaction .cat .time {
     display: flex;
@@ -99,6 +99,7 @@ h1 {
     grid-template-columns: repeat(2, auto);
     grid-template-rows: repeat(2, auto);
     padding: 10px;
+    gap: 0.2rem;
 }
 
 .interact button {
@@ -164,13 +165,14 @@ h1 {
     display: none !important;
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 500px) {
     h1 {
         font-size: 1.7rem;
     }
 
     .flex-container {
         width: 90%;
+        height: 62.4%;
     }
 
     .stats {
@@ -187,13 +189,36 @@ h1 {
         width: 100%;
     }
 
+    .cat-interaction .cat-pic {
+        height: 100%;
+    }
+
     .cat-interaction .cat .time {
         font-size: 0.8rem;
-        width: 20vw;
-        margin-left: 10%;
+        width: 27vw;
+        margin-left: 19%;
+    }
+
+    .cat-interaction .interact {
+        width: 50%;
+        gap: 0.5rem;
+    }
+
+    .interact button {
+        height: 57.5%;
+        aspect-ratio: 1;
+        background-color: #ffd449;
+        border-radius: 10px;
+        font-size: 1rem;
     }
 
     .text {
         width: 100%;
+        height: 100%;
+    }
+
+    .text p {
+        margin: 10px auto;
+        padding: 5px 10px;
     }
 }
