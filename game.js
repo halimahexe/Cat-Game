@@ -60,7 +60,20 @@ interact4.onclick = care;
 start.onclick = startGame;
 
 function startGame() {
-
+    energy = 50;
+    energyText.innerText = energy;
+    happiness = 0;
+    happyText.innerText = happiness;
+    full = 50;
+    fullText.innerText = full;
+    bond = 0;
+    bondText.innerText = bond;
+    day = 1;
+    daysText.innerText = day;
+    actions = 6;
+    actionsText.innerText = actions;
+    cat = Math.floor(Math.random() * cats.length);
+    start.classList.add("hidden");
 }
 
 
