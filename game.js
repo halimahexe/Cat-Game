@@ -31,7 +31,7 @@ const cats = [{
     interactText: ["Enzo screams at you before you've prepared his meal and gobbles it up as soon as you set it down. He looks at you expectantly for more.",
 "Enzo purrs as you pet him, rubbing his cheeks against your hand.",
 "Enzo burbles as you wave a feather toy at him, eyeing it up before he pounces and catches it with his paws.",
-"Enzo eyes you warily as you bring out the claw trimmers before tucking his paws under his body and out of reach."]
+"Enzo eyes you warily as you bring out the claw trimmers before tucking his paws under his body and out of reach."],
     points: [10, 10, 15, 5], // Get less points for 'care' because that entails discomfort
 }, {
     name: "Cleo",
