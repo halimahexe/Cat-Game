@@ -22,7 +22,7 @@ h1 {
 
 /* Overall Container */
 .flex-container {
-    height: 500px;
+    height: 550px;
     width: 500px;
     border: 1px solid;
     border-radius: 10px;
@@ -114,8 +114,8 @@ h1 {
 /* Game text section */
 .text {
     width: 500px;
-    height: 190px;
-    text-align: justify;
+    height: 250px;
+    text-align: center;
     background-color: rgb(127, 0, 255);
     color: #ffffff;
     font-weight: 600;
@@ -128,21 +128,6 @@ h1 {
 .text p {
     margin: auto;
     padding: 10px;
-}
-
-.text .user-input {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.text .user-input input {
-    margin: 0 auto;
-    border-radius: 10px;
-    padding: 5px;
-    height: 40px;
-    text-align: center;
-    font-family: inherit;
 }
 
 .btn-container {
@@ -173,7 +158,7 @@ h1 {
 
     .flex-container {
         width: 90%;
-        height: 62.4%;
+        height: 67%;
     }
 
     .stats {

@@ -17,8 +17,10 @@ const energyText = document.querySelector("#energy");
 const happyText = document.querySelector("#happy");
 const fullText = document.querySelector("#full");
 const bondText = document.querySelector("#bond");
-const daysText = document.querySelector("#day")
-const actionsText = document.querySelector("#action")
+const daysText = document.querySelector("#day");
+const actionsText = document.querySelector("#action");
+const textOne = document.querySelector(".text-one");
+const textTwo = document.querySelector(".text-two");
 
 // I've created different cats that will be randomly selected and assigned to the variable 'cat'
 // The idea is that they each have different point scores depending on what they enjoy and need more of
@@ -52,7 +54,7 @@ const types = [{
 }] // have an idea to make a multiplier dependent on type of cat chosen but not sure how to access/apply this in the game yet
 
 const gameBtns = [{
-
+ startGame, endDay, 
 }] // This will ideally have the different buttons that will sit on the bottom of the game, with start/restart and other functions like that
 
 const interactions = []; // I want to make interactions more complicated but not sure how to do that yet
@@ -76,7 +78,8 @@ function startGame() {
     daysText.innerText = day;
     actions = 6;
     actionsText.innerText = actions;
-    cat = Math.floor(Math.random() * cats.length);
+    cat = cats[Math.floor(Math.random() * cats.length)];
+    console.log(cat);
     start.classList.add("hidden");
 }
 
@@ -89,7 +92,12 @@ function feed() {
         fullText.innerText = full;
         happyText.innerText = happiness;
         actionsText.innerText = actions;
-    } else endDay;
+    } else {
+        textOne.innerText = "Oh dear you have run out of actions.";
+        textTwo.innerText = "All you can do is progress to the next day and see whether you've done enough to improve your bond with your cat. Press the button below.";
+        // add event listener for end of day
+        endDay;
+    }
 }
 
 function pet() {
@@ -107,10 +115,13 @@ function care() {
 function endDay() {
     bond += (energy + happiness + full) * 0.5;
     bondText.innerText = bond;
+    // Add event listener for new day button to start newDay function
     newDay;
 }
 
 function newDay() {
     day++;
     actions = 6;
+    daysText.innerText = day;
+    actionsText.innerText = actions;
 }
