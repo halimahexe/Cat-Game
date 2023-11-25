@@ -118,7 +118,7 @@ function feed() {
 }
 
 function pet() {
-    while (actions > 0) {
+    if (actions > 0) {
         if (happiness < 100) {
             happiness += (25 * types[0].multiplier[1]); // Make this multiplier more universal in future
             actions--;
@@ -128,9 +128,10 @@ function pet() {
             textOne.innerText = `${cat.name} is as happy as they can be.`;
             textTwo.innerText = "Please try another action.";
         }
+    } else {
+        textOne.innerText = "Oh dear, you have run out of actions.";
+        textTwo.innerText = `All you can do is end the day and see whether you've done enough to improve your bond with ${cat.name}. Press 'End Day' below.`;
     }
-    textOne.innerText = "Oh dear, you have run out of actions.";
-    textTwo.innerText = `All you can do is end the day and see whether you've done enough to improve your bond with ${cat.name}. Press 'End Day' below.`;
 }
 
 function play() {
