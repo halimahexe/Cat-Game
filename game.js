@@ -130,7 +130,7 @@ function pet() {
         }
     }
     textOne.innerText = "Oh dear, you have run out of actions.";
-    textTwo.innerText = "All you can do is end the day and see whether you've done enough to improve your bond with your cat. Press 'End Day' below.";
+    textTwo.innerText = `All you can do is end the day and see whether you've done enough to improve your bond with ${cat.name}. Press 'End Day' below.`;
 }
 
 function play() {
