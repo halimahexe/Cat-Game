@@ -101,20 +101,24 @@ function startGame() {
 }
 
 function feed() {
-    if (actions > 0 && full < 100) {
-        full += cat.points[0];
-        actions--;
-        fullText.innerText = full;
-        actionsText.innerText = actions;
-        textOne.innerText = `You fed ${cat.name}.`
-        textTwo.innerText = cat.interactText[0];
-    } else if (full >= 100) {
-        textOne.innerText = `${cat.name} is full.`;
-        textTwo.innerText = "Please try another action.";
-    } else if (actions === 0) {
+    if (actions > 0) {
+        if (full < 100) {
+            full += cat.points[0];
+            actions--;
+            energy += 10;
+            fullText.innerText = full;
+            actionsText.innerText = actions;
+            energyText.innerText = energy;
+            textOne.innerText = `You fed ${cat.name}.`
+            textTwo.innerText = cat.interactText[0];
+        } else {
+            textOne.innerText = `${cat.name} is full.`;
+            textTwo.innerText = "Please try another action.";
+        }
+    } else {
         textOne.innerText = "Oh dear, you have run out of actions.";
         textTwo.innerText = "All you can do is end the day and see whether you've done enough to improve your bond with your cat. Press 'End Day' below.";
-    }
+    } //refactor this statement into a function perhaps? As it's repeated for all functions
 }
 
 function pet() {
@@ -122,8 +126,12 @@ function pet() {
         if (happiness < 100) {
             happiness += (25 * types[0].multiplier[1]); // Make this multiplier more universal in future
             actions--;
+            energy += 5;
             happyText.innerText = happiness;
             actionsText.innerText = actions;
+            energyText.innerText = energy;
+            textOne.innerText = `You pet ${cat.name}.`
+            textTwo.innerText = cat.interactText[1];
         } else {
             textOne.innerText = `${cat.name} is as happy as they can be.`;
             textTwo.innerText = "Please try another action.";
@@ -136,21 +144,40 @@ function pet() {
 
 function play() {
     if (actions > 0) {
-        energy -= (25 * types[0].multiplier[1]); // Make this multiplier more universal in future
-        actions--;
-        energyText.innerText = energy;
-        actionsText.innerText = actions;
-    } else if (happiness <= 0) {
-        textOne.innerText = `${cat.name} has played to their heart's content and is now exhausted.`;
-        textTwo.innerText = "Please try another action.";
-    } else if (actions === 0) {
+        if (energy > 0) {
+            energy -= (25 * types[0].multiplier[1]); // Make this multiplier more universal in future
+            actions--;
+            energyText.innerText = energy;
+            actionsText.innerText = actions;
+            textOne.innerText = `You played with ${cat.name}.`
+            textTwo.innerText = cat.interactText[2];
+        } else {
+            textOne.innerText = `${cat.name} has played to their heart's content and is now exhausted.`;
+            textTwo.innerText = "Please try another action.";
+        }
+    } else {
         textOne.innerText = "Oh dear, you have run out of actions.";
         textTwo.innerText = "All you can do is end the day and see whether you've done enough to improve your bond with your cat. Press 'End Day' below.";
     }
 }
 
 function care() {
-
+    if (actions > 0) {
+        if (energy < 100 || happiness < 100) {
+            energy += (25 * types[0].multiplier[1]); // Make this multiplier more universal in future
+            actions--;
+            energyText.innerText = energy;
+            actionsText.innerText = actions;
+            textOne.innerText = `You cared for ${cat.name} and restored some of their energy.`
+            textTwo.innerText = cat.interactText[2];
+        } else {
+            textOne.innerText = `${cat.name} is happy and energetic enough and they don't require any care.`;
+            textTwo.innerText = "Please try another action.";
+        }
+    } else {
+        textOne.innerText = "Oh dear, you have run out of actions.";
+        textTwo.innerText = "All you can do is end the day and see whether you've done enough to improve your bond with your cat. Press 'End Day' below.";
+    }
 }
 
 function endDay() {
@@ -171,5 +198,5 @@ function newDay() {
 }
 
 function winGame() {
-
+    
 }
