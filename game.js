@@ -124,7 +124,7 @@ function feed() {
 function pet() {
     if (actions > 0) {
         if (happiness < 100) {
-            happiness += (25 * types[0].multiplier[1]); // Make this multiplier more universal in future
+            happiness += (cat.points[1] * types[0].multiplier[1]); // Make this multiplier more universal in future
             actions--;
             energy += 5;
             happyText.innerText = happiness;
@@ -145,7 +145,7 @@ function pet() {
 function play() {
     if (actions > 0) {
         if (energy > 0) {
-            energy -= (25 * types[0].multiplier[1]); // Make this multiplier more universal in future
+            energy -= (25 * types[0].multiplier[2]); // Make this multiplier more universal in future
             actions--;
             energyText.innerText = energy;
             actionsText.innerText = actions;
@@ -161,15 +161,15 @@ function play() {
     }
 }
 
-function care() {
+function care() { // Not really sure how this function should work or if it's needed?
     if (actions > 0) {
-        if (energy < 100 || happiness < 100) {
-            energy += (25 * types[0].multiplier[1]); // Make this multiplier more universal in future
+        if (energy < 100 && happiness < 100) {
+            energy += (25 * types[0].multiplier[3]); // Make this multiplier more universal in future
             actions--;
             energyText.innerText = energy;
             actionsText.innerText = actions;
             textOne.innerText = `You cared for ${cat.name} and restored some of their energy.`
-            textTwo.innerText = cat.interactText[2];
+            textTwo.innerText = cat.interactText[3];
         } else {
             textOne.innerText = `${cat.name} is happy and energetic enough and they don't require any care.`;
             textTwo.innerText = "Please try another action.";
@@ -183,7 +183,7 @@ function care() {
 function endDay() {
     bond += (- energy + happiness + full) * 0.05;
     bondText.innerText = bond;
-    next.onclick = newDay;
+    // Add text to show the end of day summary
 }
 
 function newDay() {
@@ -195,8 +195,9 @@ function newDay() {
     actionsText.innerText = actions;
     energyText.innerText = energy;
     fullText.innerText = full;
+    // Add  text to show it's the next day
 }
 
 function winGame() {
-    
+
 }
