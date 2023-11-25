@@ -78,6 +78,7 @@ h1 {
     background-color: #323031;
     color: #ffffff;
     margin-left: 52.5px;
+    /* position: relative; */
 }
 
 .time p:not(:last-of-type) {
