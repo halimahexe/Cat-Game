@@ -109,13 +109,13 @@ function feed() {
         actionsText.innerText = actions;
         textOne.innerText = `You fed ${cat.name}.`
         textTwo.innerText = cat.interactText[0];
-    } else if (full >= 100) {
-        textOne.innerText = `${cat.name} is full.`;
-        textTwo.innerText = "Please try another action.";
-    } else {
+    } else if (actions === 0) {
         textOne.innerText = "Oh dear, you have run out of actions.";
         textTwo.innerText = "All you can do is progress to the next day and see whether you've done enough to improve your bond with your cat. Press the button below.";
         end.onclick = endDay;
+    } else if (full >= 100) {
+        textOne.innerText = `${cat.name} is full.`;
+        textTwo.innerText = "Please try another action.";
     }
 }
 
@@ -125,14 +125,14 @@ function pet() {
         actions--;
         happyText.innerText = happiness;
         actionsText.innerText = actions;
-    } else if (happiness >= 100) {
-        textOne.innerText = `${cat.name} is as happy as they can be.`;
-        textTwo.innerText = "Please try another action.";
-    } else {
+    } else if (actions === 0) {
         textOne.innerText = "Oh dear, you have run out of actions.";
         textTwo.innerText = "All you can do is progress to the next day and see whether you've done enough to improve your bond with your cat. Press the button below.";
         end.onclick = endDay;
-    }
+    } else if (happiness >= 100) {
+        textOne.innerText = `${cat.name} is as happy as they can be.`;
+        textTwo.innerText = "Please try another action.";
+    } 
 }
 
 function play() {
