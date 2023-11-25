@@ -34,6 +34,7 @@ const textTwo = document.querySelector(".text-two");
 const cats = [{
     name: "Enzo",
     type: "needy",
+    typeText: "A needy cat will need more attention and care than other cats and you will get less points for your actions overall."
     interactions: ["feed", "pet", "play", "care"],
     interactText: ["Enzo screams at you before you've prepared his meal and gobbles it up as soon as you set it down. He looks at you expectantly for more.",
 "Enzo purrs as you pet him, rubbing his cheeks against your hand.",
@@ -43,14 +44,16 @@ const cats = [{
 }, {
     name: "Cleo",
     type: "aloof",
+    typeText: "An aloof cat pretends that humans are beneath them but they enjoy your care nonetheless. You will get less points for some actions and more for others. It's your job to figure out which!"
     interactions: ["feed", "pet", "play", "care"],
-    interactText: [],
+    interactText: ["","","",""],
     points: [30, 5, 15, 10]
 }, {
     name: "Mungo",
     type: "friendly",
+    typeText: "A friendly cat is uncomplicated in their desire for love and affection and will give you the same points for all actions."
     interactions: ["feed", "pet", "play", "care"],
-    interactText: ["Mungo is happy you fed him"],
+    interactText: ["Mungo is happy you fed him", "", "", "",],
     points: [15, 15, 15, 15] // Friendly cats give the same amount of points for everything
 }];
 
@@ -61,7 +64,7 @@ const types = [{
     type: "aloof",
     multiplier: []
 }, {
-    "friendly",
+    type: "friendly",
     multiplier: [1, 1, 1, 1]
 }] // have an idea to make a multiplier dependent on type of cat chosen but not sure how to access/apply this in the game yet
 
@@ -91,18 +94,21 @@ function startGame() {
     actions = 6;
     actionsText.innerText = actions;
     cat = cats[Math.floor(Math.random() * cats.length)];
-    console.log(cat);
     start.classList.add("hidden");
+    textOne.innerText = `Thank you for agreeing to join the cat distribution system. Your cat is called ${cat.name}.`
+    textTwo.innerText = `Their trait is ${cat.type}.`;
 }
 
 function feed() {
     if (actions > 0 && full < 100) {
         full += cat.points[0];
-        happiness += (25 * types[0].multiplier); // Make this multiplier more universal in future
+        happiness += (25 * types[0].multiplier[0]); // Make this multiplier more universal in future
         actions--;
         fullText.innerText = full;
         happyText.innerText = happiness;
         actionsText.innerText = actions;
+        textOne.innerText = `You fed ${cat.name}.`
+        textTwo.innerText = cat.interactText[0];
     } else if (full >= 100) {
         textOne.innerText = `${cat.name} is full.`;
         textTwo.innerText = "Please try another action.";
@@ -115,7 +121,7 @@ function feed() {
 
 function pet() {
     if (actions > 0) {
-        happiness += (25 * types[0].multiplier); // Make this multiplier more universal in future
+        happiness += (25 * types[0].multiplier[1]); // Make this multiplier more universal in future
         actions--;
         happyText.innerText = happiness;
         actionsText.innerText = actions;
@@ -138,7 +144,7 @@ function care() {
 }
 
 function endDay() {
-    bond += (energy + happiness + full) * 0.05;
+    bond += (- energy + happiness + full) * 0.05;
     bondText.innerText = bond;
     next.onclick = newDay;
 }
