@@ -70,6 +70,10 @@ h1 {
 }
 /* Temporarily have a border here to help me place the cat picture when I get to that */
 
+#image {
+    padding-top: 25px;
+}
+
 .cat-interaction .cat .time {
     display: flex;
     width: 135px;
