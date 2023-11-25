@@ -127,7 +127,6 @@ h1 {
 }
 
 .text p {
-    margin: auto;
     padding: 10px;
 }
 
@@ -217,7 +216,7 @@ h1 {
     }
 
     .text p {
-        margin: 10px auto;
+        margin: 5px auto;
         padding: 5px 10px;
     }
 }

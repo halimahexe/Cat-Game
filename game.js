@@ -6,12 +6,17 @@ let day = 1;
 let actions = 6; // Actions will decrease with button presses
 let cat; // This will be the cat randomly selected for the game
 
+const image = document.querySelector('#image');
+const catPic = '<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M320 192h17.1c22.1 38.3 63.5 64 110.9 64c11 0 21.8-1.4 32-4v4 32V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V339.2L280 448h56c17.7 0 32 14.3 32 32s-14.3 32-32 32H192c-53 0-96-43-96-96V192.5c0-16.1-12-29.8-28-31.8l-7.9-1c-17.5-2.2-30-18.2-27.8-35.7s18.2-30 35.7-27.8l7.9 1c48 6 84.1 46.8 84.1 95.3v85.3c34.4-51.7 93.2-85.8 160-85.8zm160 26.5v0c-10 3.5-20.8 5.5-32 5.5c-28.4 0-54-12.4-71.6-32h0c-3.7-4.1-7-8.5-9.9-13.2C357.3 164 352 146.6 352 128v0V32 12 10.7C352 4.8 356.7 .1 362.6 0h.2c3.3 0 6.4 1.6 8.4 4.2l0 .1L384 21.3l27.2 36.3L416 64h64l4.8-6.4L512 21.3 524.8 4.3l0-.1c2-2.6 5.1-4.2 8.4-4.2h.2C539.3 .1 544 4.8 544 10.7V12 32v96c0 17.3-4.6 33.6-12.6 47.6c-11.3 19.8-29.6 35.2-51.4 42.9zM432 128a16 16 0 1 0 -32 0 16 16 0 1 0 32 0zm48 16a16 16 0 1 0 0-32 16 16 0 1 0 0 32z"/></svg>'
+
 const interact1 = document.querySelector("#interact-btn1");
 const interact2 = document.querySelector("#interact-btn2");
 const interact3 = document.querySelector("#interact-btn3");
 const interact4 = document.querySelector("#interact-btn4");
 
 const start = document.querySelector("#startBtn");
+const end = document.querySelector('#endDay');
+const next = document.querySelector('#nextDay');
 
 const energyText = document.querySelector("#energy");
 const happyText = document.querySelector("#happy");
@@ -39,6 +44,7 @@ const cats = [{
     name: "Cleo",
     type: "aloof",
     interactions: ["feed", "pet", "play", "care"],
+    interactText: [],
     points: [30, 5, 15, 10]
 }, {
     name: "Mungo",
@@ -50,11 +56,17 @@ const cats = [{
 
 const types = [{
     type: "needy",
-    multiplier: [0.5],
+    multiplier: [1, 1.5, 1, 0.25],
+}, {
+    type: "aloof",
+    multiplier: []
+}, {
+    "friendly",
+    multiplier: [1, 1, 1, 1]
 }] // have an idea to make a multiplier dependent on type of cat chosen but not sure how to access/apply this in the game yet
 
 const gameBtns = [{
- startGame, endDay, 
+ startGame, newDay, endDay, 
 }] // This will ideally have the different buttons that will sit on the bottom of the game, with start/restart and other functions like that
 
 const interactions = []; // I want to make interactions more complicated but not sure how to do that yet
@@ -83,25 +95,38 @@ function startGame() {
     start.classList.add("hidden");
 }
 
-
 function feed() {
-    if (actions > 0) {
+    if (actions > 0 && full < 100) {
         full += cat.points[0];
         happiness += (25 * types[0].multiplier); // Make this multiplier more universal in future
         actions--;
         fullText.innerText = full;
         happyText.innerText = happiness;
         actionsText.innerText = actions;
+    } else if (full >= 100) {
+        textOne.innerText = `${cat.name} is full.`;
+        textTwo.innerText = "Please try another action.";
     } else {
-        textOne.innerText = "Oh dear you have run out of actions.";
+        textOne.innerText = "Oh dear, you have run out of actions.";
         textTwo.innerText = "All you can do is progress to the next day and see whether you've done enough to improve your bond with your cat. Press the button below.";
-        // add event listener for end of day
-        endDay;
+        end.onclick = endDay;
     }
 }
 
 function pet() {
-
+    if (actions > 0) {
+        happiness += (25 * types[0].multiplier); // Make this multiplier more universal in future
+        actions--;
+        happyText.innerText = happiness;
+        actionsText.innerText = actions;
+    } else if (happiness >= 100) {
+        textOne.innerText = `${cat.name} is as happy as they can be.`;
+        textTwo.innerText = "Please try another action.";
+    } else {
+        textOne.innerText = "Oh dear, you have run out of actions.";
+        textTwo.innerText = "All you can do is progress to the next day and see whether you've done enough to improve your bond with your cat. Press the button below.";
+        end.onclick = endDay;
+    }
 }
 
 function play() {
@@ -113,19 +138,21 @@ function care() {
 }
 
 function endDay() {
-    bond += (energy + happiness + full) * 0.5;
+    bond += (energy + happiness + full) * 0.05;
     bondText.innerText = bond;
-    // Add event listener for new day button to start newDay function
-    newDay;
+    next.onclick = newDay;
 }
 
 function newDay() {
     day++;
     actions = 6;
+    energy = 100;
+    full -= 50;
     daysText.innerText = day;
     actionsText.innerText = actions;
+    energyText.innerText = energy;
 }
 
 function winGame() {
-    
+
 }
