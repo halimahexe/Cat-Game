@@ -34,7 +34,7 @@ const textTwo = document.querySelector(".text-two");
 const cats = [{
     name: "Enzo",
     type: "needy",
-    typeText: "A needy cat will need more attention and care than other cats and you will get less points for your actions overall."
+    typeText: "A needy cat will need more attention and care than other cats and you will get less points for your actions overall.",
     interactions: ["feed", "pet", "play", "care"],
     interactText: ["Enzo screams at you before you've prepared his meal and gobbles it up as soon as you set it down. He looks at you expectantly for more.",
 "Enzo purrs as you pet him, rubbing his cheeks against your hand.",
@@ -44,14 +44,14 @@ const cats = [{
 }, {
     name: "Cleo",
     type: "aloof",
-    typeText: "An aloof cat pretends that humans are beneath them but they enjoy your care nonetheless. You will get less points for some actions and more for others. It's your job to figure out which!"
+    typeText: "An aloof cat pretends that humans are beneath them but they enjoy your care nonetheless. You will get less points for some actions and more for others. It's your job to figure out which!",
     interactions: ["feed", "pet", "play", "care"],
     interactText: ["","","",""],
     points: [30, 5, 15, 10]
 }, {
     name: "Mungo",
     type: "friendly",
-    typeText: "A friendly cat is uncomplicated in their desire for love and affection and will give you the same points for all actions."
+    typeText: "A friendly cat is uncomplicated in their desire for love and affection and will give you the same points for all actions.",
     interactions: ["feed", "pet", "play", "care"],
     interactText: ["Mungo is happy you fed him", "", "", "",],
     points: [15, 15, 15, 15] // Friendly cats give the same amount of points for everything
