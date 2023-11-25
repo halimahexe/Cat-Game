@@ -125,3 +125,7 @@ function newDay() {
     daysText.innerText = day;
     actionsText.innerText = actions;
 }
+
+function winGame() {
+    
+}

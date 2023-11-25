@@ -154,6 +154,7 @@ h1 {
 @media screen and (max-width: 500px) {
     h1 {
         font-size: 1.7rem;
+        margin-top: -50%;
     }
 
     .flex-container {
