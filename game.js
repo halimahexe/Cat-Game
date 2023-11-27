@@ -250,6 +250,7 @@ function endDay() {
         next.classList.remove('hidden');
     } else if (bond >= 100) {
         winGame;
+        // console.log(winGame);
     }
 }
 
@@ -270,7 +271,7 @@ function newDay() {
 function winGame() {
     textOne.innerText = `Congratulations, you and ${cat.name} have reached a bond of ${bond}.`;
     textTwo.innerText = `You won the game in ${day} days. Do you think you can beat your score? Press 'Restart' to try again!`
-    next.classList.add('hidden');
+    // next.classList.add('hidden');
 }
 
 // function noActions() {
