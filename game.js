@@ -49,8 +49,8 @@ const cats = [{
     type: "aloof",
     typeText: "An aloof cat pretends that humans are beneath them but they enjoy your care nonetheless. You will get less points for some actions and more for others. It's your job to figure out which!",
     interactions: ["feed", "pet", "play", "care"],
-    interactText: ["","","",""],
-    points: [30, 5, 15, 10],
+    interactText: ["Cleo is pleased that you deigned to finally feed her.","Cleo has decided to allow you to touch her fluffyness ... for now.","Cleo is excited to use her sharp claws to destroy her prey.","Cleo is displeased by your attempts to coerce her into submission, even if it is for 'the greater good', whatever that is..."],
+    points: [30, 10, 15, 10],
     multiplier: [1, 0.5, 1, 0.5],
     colour: "#E3963E"
 }, {
@@ -68,7 +68,8 @@ const gameBtns = [{
  startGame, newDay, endDay, 
 }] // This will ideally have the different buttons that will sit on the bottom of the game, with start/restart and other functions like that
 
-const interactions = []; // I want to make interactions more complicated but not sure how to do that yet
+// const interactions = [];
+// Ideally, if I had more time, I would introduce a chance that the interaction doesn't go the way it's intended - i.e. sometimes the cat gobbles the food too fast and ends up throwing it up, resulting in less fullness
 
 interact1.onclick = feed;
 interact2.onclick = pet;
@@ -98,7 +99,8 @@ function startGame() {
     textOne.innerText = `Thank you for agreeing to join the cat distribution system. Your cat is called ${cat.name}. Their trait is ${cat.type}.`
     textTwo.innerText = `You will need to feed, pet, play and care for them to improve your bond. Good luck!`;
     image.innerHTML = `${catPic}<h2>${cat.name}</h2>`;
-    // catPic.style.fill = cat.colour; // I want to find a way to style the svg fill colour depending on which cat is selected
+    // catPic.style.fill = cat.colour;
+    // I want to find a way to style the svg fill colour depending on which cat is selected
 }
 
 function feed() {
@@ -148,7 +150,7 @@ function pet() {
 function play() {
     if (actions > 0) {
         if (energy > 0) {
-            energy -= (cat.points[2] * cat.multiplier[2]); // Make this multiplier more universal in future
+            energy -= (cat.points[2] * cat.multiplier[2]);
             actions--;
             energyText.innerText = energy;
             actionsText.innerText = actions;
@@ -168,7 +170,7 @@ function play() {
 function care() { // Not really sure how this function should work or if it's needed?
     if (actions > 0) {
         if (energy < 100) {
-            energy += (cat.points[3] * cat.multiplier[3]); // Make this multiplier more universal in future
+            energy += (cat.points[3] * cat.multiplier[3]);
             actions--;
             energyText.innerText = energy;
             actionsText.innerText = actions;
