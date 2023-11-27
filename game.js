@@ -81,6 +81,12 @@ end.onclick = endDay;
 next.onclick = newDay;
 restart.onclick = startGame;
 
+// Disabling buttons before start to avoid game errors
+interact1.disabled = true;
+interact2.disabled = true;
+interact3.disabled = true;
+interact4.disabled = true;
+
 // The below was an attempt to refactor my code to avoid repeating the if (actions > 0) code but I wasn't sure how to make it work with the variables that have values assigned to them
 
 // const stats = [{
@@ -156,6 +162,11 @@ function startGame() {
     textOne.innerText = `Thank you for agreeing to join the cat distribution system. Your cat is called ${cat.name}. Their trait is ${cat.type}.`
     textTwo.innerText = `You will need to feed, pet, play and care for them to improve your bond. Good luck!`;
     image.innerHTML = `${catPic}<h2>${cat.name}</h2>`;
+    // Means that you can't click the feed, pet, play, care buttons until the game has started to avoid issues;
+    interact1.disabled = false;
+    interact2.disabled = false;
+    interact3.disabled = false;
+    interact4.disabled = false;
     // catPic.style.fill = cat.colour;
     // I want to find a way to style the svg fill colour depending on which cat is selected
 }
@@ -183,7 +194,7 @@ function feed() {
 function pet() {
     if (actions > 0) {
         if (happiness < 100) {
-            happiness += (cat.points[1] * cat.multiplier[1]);
+            happiness += (Math.floor(cat.points[1] * cat.multiplier[1]));
             actions--;
             happyText.innerText = happiness;
             actionsText.innerText = actions;
@@ -241,16 +252,20 @@ function care() { // I think this function would work better if it modified a he
 }
 
 function endDay() {
-    bond += ((happiness + full) - energy) * 0.2;
+    bond += (Math.floor(((happiness + full) - energy) * 0.2));
     bondText.innerText = bond;
     end.classList.add('hidden');
+    interact1.disabled = true;
+    interact2.disabled = true;
+    interact3.disabled = true;
+    interact4.disabled = true;
     if (bond < 100) {
         textOne.innerHTML = `<strong>End of Day ${day} summary:</strong>`
         textTwo.innerText = `You have increased ${cat.name}'s stats as follows: ${(energy - 50)} energy, ${(happiness - 0)} happiness and ${(full - 50)} fullness. Your bond has increased to ${bond}. You need ${(100-bond)} points to win the game. Press 'Next Day' to continue!`
         next.classList.remove('hidden');
     } else if (bond >= 100) {
-        winGame;
-        // console.log(winGame);
+        textOne.innerText = `Congratulations, you and ${cat.name} have reached a bond of ${bond}.`;
+        textTwo.innerText = `You won the game in ${day} days. Do you think you can beat your score? Press 'Restart' to try again!`
     }
 }
 
@@ -259,19 +274,19 @@ function newDay() {
     actions = 6;
     energy = 100;
     full -= 50;
+    happiness -= Math.floor((Math.random() * 30));
     daysText.innerText = day;
     actionsText.innerText = actions;
     energyText.innerText = energy;
     fullText.innerText = full;
+    happyText.innerText = happiness;
     textOne.innerText = `Today is Day ${day}.`;
     textTwo.innerText = `How will you take care of ${cat.name} today?`
     next.classList.add('hidden');
-}
-
-function winGame() {
-    textOne.innerText = `Congratulations, you and ${cat.name} have reached a bond of ${bond}.`;
-    textTwo.innerText = `You won the game in ${day} days. Do you think you can beat your score? Press 'Restart' to try again!`
-    // next.classList.add('hidden');
+    interact1.disabled = false;
+    interact2.disabled = false;
+    interact3.disabled = false;
+    interact4.disabled = false;
 }
 
 // function noActions() {
