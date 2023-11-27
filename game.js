@@ -71,9 +71,6 @@ const gameBtns = [{
  startGame, newDay, endDay, 
 }] // This will ideally have the different buttons that will sit on the bottom of the game, with start/restart and other functions like that
 
-// const interactions = [];
-// Ideally, if I had more time, I would introduce a chance that the interaction doesn't go the way it's intended - i.e. sometimes the cat gobbles the food too fast and ends up throwing it up, resulting in less fullness
-
 // Click listeners lead to functions
 interact1.onclick = feed;
 interact2.onclick = pet;
@@ -83,6 +80,62 @@ start.onclick = startGame;
 end.onclick = endDay;
 next.onclick = newDay;
 restart.onclick = startGame;
+
+// The below was an attempt to refactor my code to avoid repeating the if (actions > 0) code but I wasn't sure how to make it work with the variables that have values assigned to them
+
+// const stats = [{
+//     stat: full,
+//     statText: `${fullText}`,
+//     one: `You fed ${cat.name}.`,
+//     two: cat.interactText[0],
+//     altOne: `${cat.name} is full.`,
+//     altTwo: "Please try another action."
+// }, {
+//     stat: happiness,
+//     statText: `${happyText}`,
+//     one: `You pet ${cat.name}.`,
+//     two: cat.interactText[1],
+//     altOne: `${cat.name} is full.`,
+//     altTwo: "Please try another action."
+// }, {
+//     stat: energy,
+//     statText: `${energyText}`,
+//     one: `You played with ${cat.name}.`,
+//     two: cat.interactText[2],
+//     altOne: `${cat.name} has played to their heart's content and is now exhausted.`,
+//     altTwo: "Please try another action."
+// }, {
+//     stat: energy,
+//     statText: `${energyText}`,
+//     one: `You cared for ${cat.name} and restored some of their energy.`,
+//     two: cat.interactText[3],
+//     altOne: `${cat.name} has enough energy and they don't require any care.`,
+//     altTwo: "Please try another action."
+// }, ]
+
+// function update(statistic, i) {
+//     if (actions > 0) {
+//         if (statistic.stat < 100) {
+//             statistic.stat += (cat.points[i] * cat.multiplier[i]);
+//             actions--;
+//             statistic.stat.statText.innerText = statistic.stat;
+//             actionsText.innerText = actions;
+//             textOne.innerText = one;
+//             textTwo.innerText = two;
+//         } else {
+//             textOne.innerText = altOne;
+//             textTwo.innerText = altTwo;
+//         }
+//     } else {
+//         textOne.innerText = "Oh dear, you have run out of actions.";
+//         textTwo.innerText = "All you can do is end the day and see whether you've done enough to improve your bond with your cat. Press 'End Day' below.";
+//         end.classList.remove('hidden');
+//     }
+// }
+
+// function feed() {
+//     update(stats[0], 0);
+// }
 
 function startGame() {
     energy = 50;
@@ -107,8 +160,6 @@ function startGame() {
     // I want to find a way to style the svg fill colour depending on which cat is selected
 }
 
-
-
 function feed() {
     if (actions > 0) {
         if (full < 100) {
@@ -116,7 +167,7 @@ function feed() {
             actions--;
             fullText.innerText = full;
             actionsText.innerText = actions;
-            textOne.innerText = `You fed ${cat.name}.`
+            textOne.innerText = `You fed ${cat.name}.`;
             textTwo.innerText = cat.interactText[0];
         } else {
             textOne.innerText = `${cat.name} is full.`;
@@ -169,7 +220,7 @@ function play() {
     }
 }
 
-function care() { // Not really sure how this function should work or if it's needed?
+function care() { // I think this function would work better if it modified a health stat, which I previously removed. If I had more time, I'd add it back in and replace energy with health in the function below.
     if (actions > 0) {
         if (energy < 100) {
             energy += (cat.points[3] * cat.multiplier[3]);
