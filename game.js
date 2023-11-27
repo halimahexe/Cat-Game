@@ -17,6 +17,7 @@ const interact4 = document.querySelector("#interact-btn4");
 const start = document.querySelector("#startBtn");
 const end = document.querySelector('#endDay');
 const next = document.querySelector('#nextDay');
+const restart = document.querySelector('#restart');
 
 const energyText = document.querySelector("#energy");
 const happyText = document.querySelector("#happy");
@@ -76,6 +77,7 @@ interact4.onclick = care;
 start.onclick = startGame;
 end.onclick = endDay;
 next.onclick = newDay;
+restart.onclick = startGame;
 
 function startGame() {
     energy = 50;
@@ -92,6 +94,7 @@ function startGame() {
     actionsText.innerText = actions;
     cat = cats[Math.floor(Math.random() * cats.length)];
     start.classList.add("hidden");
+    restart.classList.remove("hidden");
     textOne.innerText = `Thank you for agreeing to join the cat distribution system. Your cat is called ${cat.name}. Their trait is ${cat.type}.`
     textTwo.innerText = `You will need to feed, pet, play and care for them to improve your bond. Good luck!`;
     image.innerHTML = `${catPic}<h2>${cat.name}</h2>`;
