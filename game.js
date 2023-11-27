@@ -116,11 +116,7 @@ function feed() {
             textOne.innerText = `${cat.name} is full.`;
             textTwo.innerText = "Please try another action.";
         }
-    } else {
-        textOne.innerText = "Oh dear, you have run out of actions.";
-        textTwo.innerText = "All you can do is end the day and see whether you've done enough to improve your bond with your cat. Press 'End Day' below.";
-        end.classList.remove('hidden');
-    } //refactor this statement into a function perhaps? As it's repeated for all functions
+    } else noActions;
 }
 
 function pet() {
@@ -138,11 +134,7 @@ function pet() {
             textOne.innerText = `${cat.name} is as happy as they can be.`;
             textTwo.innerText = "Please try another action.";
         }
-    } else {
-        textOne.innerText = "Oh dear, you have run out of actions.";
-        textTwo.innerText = `All you can do is end the day and see whether you've done enough to improve your bond with ${cat.name}. Press 'End Day' below.`;
-        end.classList.remove('hidden');
-    }
+    } else noActions;
 }
 
 function play() {
@@ -158,11 +150,7 @@ function play() {
             textOne.innerText = `${cat.name} has played to their heart's content and is now exhausted.`;
             textTwo.innerText = "Please try another action.";
         }
-    } else {
-        textOne.innerText = "Oh dear, you have run out of actions.";
-        textTwo.innerText = "All you can do is end the day and see whether you've done enough to improve your bond with your cat. Press 'End Day' below.";
-        end.classList.remove('hidden');
-    }
+    } else noActions;
 }
 
 function care() { // Not really sure how this function should work or if it's needed?
@@ -178,11 +166,7 @@ function care() { // Not really sure how this function should work or if it's ne
             textOne.innerText = `${cat.name} has enough energy and they don't require any care.`;
             textTwo.innerText = "Please try another action.";
         }
-    } else {
-        textOne.innerText = "Oh dear, you have run out of actions.";
-        textTwo.innerText = "All you can do is end the day and see whether you've done enough to improve your bond with your cat. Press 'End Day' below.";
-        end.classList.remove('hidden');
-    }
+    } else noActions;
 }
 
 function endDay() {
@@ -201,9 +185,15 @@ function newDay() {
     actionsText.innerText = actions;
     energyText.innerText = energy;
     fullText.innerText = full;
-    // Add  text to show it's the next day
+    // Add text to show it's the next day
 }
 
 function winGame() {
 
+}
+
+function noActions() {
+    textOne.innerText = "Oh dear, you have run out of actions.";
+    textTwo.innerText = "All you can do is end the day and see whether you've done enough to improve your bond with your cat. Press 'End Day' below.";
+    end.classList.remove('hidden');
 }
