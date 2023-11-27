@@ -209,6 +209,7 @@ function newDay() {
     fullText.innerText = full;
     textOne.innerText = `Today is Day ${day}.`;
     textTwo.innerText = `How will you take care of ${cat.name} today?`
+    next.classList.add('hidden');
 }
 
 function winGame() {
