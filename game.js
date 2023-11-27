@@ -1,9 +1,9 @@
-let energy = 50;
-let happiness = 0;
-let full = 50;
-let bond = 0;
-let day = 1;
-let actions = 6; // Actions will decrease with button presses
+let energy;
+let happiness;
+let full;
+let bond;
+let day;
+let actions; // Actions will decrease with button presses
 let cat; // This will be the cat randomly selected for the game
 
 const image = document.querySelector('#image');
@@ -86,16 +86,16 @@ restart.onclick = startGame;
 
 function startGame() {
     energy = 50;
-    energyText.innerText = energy;
     happiness = 0;
-    happyText.innerText = happiness;
     full = 50;
-    fullText.innerText = full;
     bond = 0;
-    bondText.innerText = bond;
     day = 1;
-    daysText.innerText = day;
     actions = 6;
+    energyText.innerText = energy;
+    happyText.innerText = happiness;
+    fullText.innerText = full;
+    bondText.innerText = bond;
+    daysText.innerText = day;
     actionsText.innerText = actions;
     cat = cats[Math.floor(Math.random() * cats.length)];
     start.classList.add("hidden");
@@ -106,6 +106,8 @@ function startGame() {
     // catPic.style.fill = cat.colour;
     // I want to find a way to style the svg fill colour depending on which cat is selected
 }
+
+
 
 function feed() {
     if (actions > 0) {
