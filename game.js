@@ -41,8 +41,8 @@ const cats = [{
 "Enzo burbles as you wave a feather toy at him, eyeing it up before he pounces and catches it with his paws.",
 "Enzo eyes you warily as you bring out the claw trimmers before tucking his paws under his body and out of reach."],
     points: [10, 10, 15, 5], // Get less points for 'care' because that entails discomfort
-    colour: "#000000"
     multiplier: [1, 1.5, 1, 0.25],
+    colour: "#000000"
 }, {
     name: "Cleo",
     type: "aloof",
@@ -50,7 +50,7 @@ const cats = [{
     interactions: ["feed", "pet", "play", "care"],
     interactText: ["","","",""],
     points: [30, 5, 15, 10],
-    multiplier: [1, 0.5, 1, 0.5]
+    multiplier: [1, 0.5, 1, 0.5],
     colour: "#E3963E"
 }, {
     name: "Mungo",
@@ -59,7 +59,7 @@ const cats = [{
     interactions: ["feed", "pet", "play", "care"],
     interactText: ["Mungo is happy you fed him.", "Mungo purrs as you stroke his soft fur. He's blissful.", "Mungo waits for the feather toy to be within paw's reach and bats it away.", "Mungo is happy to be taken care of.",],
     points: [15, 15, 15, 15], // Friendly cats give the same amount of points for everything
-    multiplier: [1, 1, 1, 1]
+    multiplier: [1, 1, 1, 1],
     colour: "#808080"
 }];
 
