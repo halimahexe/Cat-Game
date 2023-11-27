@@ -66,9 +66,9 @@ h1 {
 }
 
 .cat-interaction .cat {
-    border: 1px solid;
+    padding: 0 5px;
+    /* border: 1px solid; */
 }
-/* Temporarily have a border here to help me place the cat picture when I get to that */
 
 #image {
     padding-top: 25px;
@@ -153,6 +153,7 @@ h1 {
 /* Class to hide elements with javascript */
 .hidden {
     display: none !important;
+    visibility: hidden !important;
 }
 
 @media screen and (max-width: 500px) {
