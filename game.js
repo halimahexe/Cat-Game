@@ -71,6 +71,7 @@ const gameBtns = [{
 // const interactions = [];
 // Ideally, if I had more time, I would introduce a chance that the interaction doesn't go the way it's intended - i.e. sometimes the cat gobbles the food too fast and ends up throwing it up, resulting in less fullness
 
+// Click listeners lead to functions
 interact1.onclick = feed;
 interact2.onclick = pet;
 interact3.onclick = play;
@@ -191,7 +192,7 @@ function endDay() {
     end.classList.add('hidden');
     if (bond < 100) {
         textOne.innerHTML = `<strong>End of Day ${day} summary:</strong>`
-        textTwo.innerText = `You have increased ${cat.name}'s stats as follows: ${(energy - 50)} energy, ${(happiness - 0)} happiness and ${(full - 50)} fullness. Your bond has increased by ${bond}. You need ${(100-bond)} points to win the game. Press 'Next Day' to continue!`
+        textTwo.innerText = `You have increased ${cat.name}'s stats as follows: ${(energy - 50)} energy, ${(happiness - 0)} happiness and ${(full - 50)} fullness. Your bond has increased to ${bond}. You need ${(100-bond)} points to win the game. Press 'Next Day' to continue!`
         next.classList.remove('hidden');
     } else if (bond >= 100) {
         winGame;
