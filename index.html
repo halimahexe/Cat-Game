@@ -26,10 +26,10 @@
                 </div>
             </div>
             <div class="interact">
-                <button id="interact-btn1">Feed</button>
-                <button id="interact-btn2">Pet</button>
-                <button id="interact-btn3">Play</button>
-                <button id="interact-btn4">Care</button>
+                <button id="interact-btn1" title="Feed to increase fullness">Feed</button>
+                <button id="interact-btn2" title="Pet to increase happiness">Pet</button>
+                <button id="interact-btn3" title="Play to decrease energy">Play</button>
+                <button id="interact-btn4" title="Care to increase energy">Care</button>
             </div>
         </div>
         <div class="text">
@@ -37,12 +37,12 @@
             <p class="text-two">How many days will it take you to earn the full trust of your new friend and reach a bond of 100? Press start to begin.</p>
             <div class="btn-container">
                 <button id="startBtn">Start</button>
-                <button id="endDay">End Day</button>
-                <button id="nextDay">Next Day</button>
+                <button id="endDay" class="hidden">End Day</button>
+                <button id="nextDay" class="hidden">Next Day</button>
                 <!-- Ideally I would only have one button and the text would change depending on what part of the game this is, to avoid confusing the player. I will refactor this if I have time. -->
             </div>
         </div>
     </div> <!-- closing div of flex container -->
-    <script src="game.js"></script>
+    <script defer src="game.js"></script>
 </body>
 </html>

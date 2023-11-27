@@ -42,6 +42,7 @@ const cats = [{
 "Enzo eyes you warily as you bring out the claw trimmers before tucking his paws under his body and out of reach."],
     points: [10, 10, 15, 5], // Get less points for 'care' because that entails discomfort
     colour: "#000000"
+    multiplier: [1, 1.5, 1, 0.25],
 }, {
     name: "Cleo",
     type: "aloof",
@@ -49,27 +50,18 @@ const cats = [{
     interactions: ["feed", "pet", "play", "care"],
     interactText: ["","","",""],
     points: [30, 5, 15, 10],
+    multiplier: [1, 0.5, 1, 0.5]
     colour: "#E3963E"
 }, {
     name: "Mungo",
     type: "friendly",
     typeText: "A friendly cat is uncomplicated in their desire for love and affection and will give you the same points for all actions.",
     interactions: ["feed", "pet", "play", "care"],
-    interactText: ["Mungo is happy you fed him", "", "", "",],
+    interactText: ["Mungo is happy you fed him.", "Mungo purrs as you stroke his soft fur. He's blissful.", "Mungo waits for the feather toy to be within paw's reach and bats it away.", "Mungo is happy to be taken care of.",],
     points: [15, 15, 15, 15], // Friendly cats give the same amount of points for everything
+    multiplier: [1, 1, 1, 1]
     colour: "#808080"
 }];
-
-const types = [{
-    type: "needy",
-    multiplier: [1, 1.5, 1, 0.25],
-}, {
-    type: "aloof",
-    multiplier: []
-}, {
-    type: "friendly",
-    multiplier: [1, 1, 1, 1]
-}] // have an idea to make a multiplier dependent on type of cat chosen but not sure how to access/apply this in the game yet
 
 const gameBtns = [{
  startGame, newDay, endDay, 
@@ -100,17 +92,16 @@ function startGame() {
     actionsText.innerText = actions;
     cat = cats[Math.floor(Math.random() * cats.length)];
     start.classList.add("hidden");
-    textOne.innerText = `Thank you for agreeing to join the cat distribution system. Your cat is called ${cat.name}.`
-    textTwo.innerText = `Their trait is ${cat.type}.`;
-    image.innerHTML = catPic;
-    console.log(cat.colour);
+    textOne.innerText = `Thank you for agreeing to join the cat distribution system. Your cat is called ${cat.name}. Their trait is ${cat.type}.`
+    textTwo.innerText = `You will need to feed, pet, play and care for them to improve your bond. Good luck!`;
+    image.innerHTML = `${catPic}<h2>${cat.name}</h2>`;
     // catPic.style.fill = cat.colour; // I want to find a way to style the svg fill colour depending on which cat is selected
 }
 
 function feed() {
     if (actions > 0) {
         if (full < 100) {
-            full += cat.points[0];
+            full += (cat.points[0] * cat.multiplier[0]);
             actions--;
             energy += 10;
             fullText.innerText = full;
@@ -125,13 +116,14 @@ function feed() {
     } else {
         textOne.innerText = "Oh dear, you have run out of actions.";
         textTwo.innerText = "All you can do is end the day and see whether you've done enough to improve your bond with your cat. Press 'End Day' below.";
+        end.classList.remove('hidden');
     } //refactor this statement into a function perhaps? As it's repeated for all functions
 }
 
 function pet() {
     if (actions > 0) {
         if (happiness < 100) {
-            happiness += (cat.points[1] * types[0].multiplier[1]); // Make this multiplier more universal in future
+            happiness += (cat.points[1] * cat.multiplier[1]);
             actions--;
             energy += 5;
             happyText.innerText = happiness;
@@ -146,13 +138,14 @@ function pet() {
     } else {
         textOne.innerText = "Oh dear, you have run out of actions.";
         textTwo.innerText = `All you can do is end the day and see whether you've done enough to improve your bond with ${cat.name}. Press 'End Day' below.`;
+        end.classList.remove('hidden');
     }
 }
 
 function play() {
     if (actions > 0) {
         if (energy > 0) {
-            energy -= (25 * types[0].multiplier[2]); // Make this multiplier more universal in future
+            energy -= (cat.points[2] * cat.multiplier[2]); // Make this multiplier more universal in future
             actions--;
             energyText.innerText = energy;
             actionsText.innerText = actions;
@@ -165,31 +158,34 @@ function play() {
     } else {
         textOne.innerText = "Oh dear, you have run out of actions.";
         textTwo.innerText = "All you can do is end the day and see whether you've done enough to improve your bond with your cat. Press 'End Day' below.";
+        end.classList.remove('hidden');
     }
 }
 
 function care() { // Not really sure how this function should work or if it's needed?
     if (actions > 0) {
-        if (energy < 100 && happiness < 100) {
-            energy += (25 * types[0].multiplier[3]); // Make this multiplier more universal in future
+        if (energy < 100) {
+            energy += (cat.points[3] * cat.multiplier[3]); // Make this multiplier more universal in future
             actions--;
             energyText.innerText = energy;
             actionsText.innerText = actions;
             textOne.innerText = `You cared for ${cat.name} and restored some of their energy.`
             textTwo.innerText = cat.interactText[3];
         } else {
-            textOne.innerText = `${cat.name} is happy and energetic enough and they don't require any care.`;
+            textOne.innerText = `${cat.name} has enough energy and they don't require any care.`;
             textTwo.innerText = "Please try another action.";
         }
     } else {
         textOne.innerText = "Oh dear, you have run out of actions.";
         textTwo.innerText = "All you can do is end the day and see whether you've done enough to improve your bond with your cat. Press 'End Day' below.";
+        end.classList.remove('hidden');
     }
 }
 
 function endDay() {
     bond += (- energy + happiness + full) * 0.05;
     bondText.innerText = bond;
+    end.classList.add('hidden');
     // Add text to show the end of day summary
 }
 
