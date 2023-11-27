@@ -83,6 +83,7 @@ interact3.onclick = play;
 interact4.onclick = care;
 start.onclick = startGame;
 end.onclick = endDay;
+next.onclick = newDay;
 
 function startGame() {
     energy = 50;
