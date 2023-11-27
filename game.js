@@ -108,7 +108,6 @@ function feed() {
         if (full < 100) {
             full += (cat.points[0] * cat.multiplier[0]);
             actions--;
-            energy += 10;
             fullText.innerText = full;
             actionsText.innerText = actions;
             energyText.innerText = energy;
@@ -130,7 +129,6 @@ function pet() {
         if (happiness < 100) {
             happiness += (cat.points[1] * cat.multiplier[1]);
             actions--;
-            energy += 5;
             happyText.innerText = happiness;
             actionsText.innerText = actions;
             energyText.innerText = energy;
@@ -188,10 +186,16 @@ function care() { // Not really sure how this function should work or if it's ne
 }
 
 function endDay() {
-    bond += (- energy + happiness + full) * 0.05;
+    bond += ((happiness + full) - energy) * 0.2;
     bondText.innerText = bond;
     end.classList.add('hidden');
-    // Add text to show the end of day summary
+    if (bond < 100) {
+        textOne.innerHTML = `<strong>End of Day ${day} summary:</strong>`
+        textTwo.innerText = `You have increased ${cat.name}'s stats as follows: ${(energy - 50)} energy, ${(happiness - 0)} happiness and ${(full - 50)} fullness. Your bond has increased by ${bond}. You need ${(100-bond)} points to win the game. Press 'Next Day' to continue!`
+        next.classList.remove('hidden');
+    } else if (bond >= 100) {
+        winGame;
+    }
 }
 
 function newDay() {
@@ -203,11 +207,14 @@ function newDay() {
     actionsText.innerText = actions;
     energyText.innerText = energy;
     fullText.innerText = full;
-    // Add text to show it's the next day
+    textOne.innerText = `Today is Day ${day}.`;
+    textTwo.innerText = `How will you take care of ${cat.name} today?`
 }
 
 function winGame() {
-
+    textOne.innerText = `Congratulations, you and ${cat.name} have reached a bond of ${bond}.`;
+    textTwo.innerText = `You won the game in ${day} days. Do you think you can beat your score? Press 'Restart' to try again!`
+    next.classList.add('hidden');
 }
 
 // function noActions() {
@@ -215,3 +222,4 @@ function winGame() {
 //     textTwo.innerText = "All you can do is end the day and see whether you've done enough to improve your bond with your cat. Press 'End Day' below.";
 //     end.classList.remove('hidden');
 // }
+// This function isn't working the way I'd hoped to avoid having to write out the same code for all four interaction functions. If I had more time, I'd look at why this isn't working as I think it should...
