@@ -67,10 +67,6 @@ const cats = [{
     colour: "#808080"
 }];
 
-const gameBtns = [{
- startGame, newDay, endDay, 
-}] // This will ideally have the different buttons that will sit on the bottom of the game, with start/restart and other functions like that
-
 // Click listeners lead to functions
 interact1.onclick = feed;
 interact2.onclick = pet;
@@ -78,7 +74,7 @@ interact3.onclick = play;
 interact4.onclick = care;
 start.onclick = startGame;
 end.onclick = endDay;
-next.onclick = newDay;
+next.onclick = nextDay;
 restart.onclick = startGame;
 
 // Disabling buttons before start to avoid game errors
@@ -86,6 +82,166 @@ interact1.disabled = true;
 interact2.disabled = true;
 interact3.disabled = true;
 interact4.disabled = true;
+
+// Start Game
+function startGame() {
+    energy = 50;
+    happiness = 0;
+    full = 50;
+    bond = 0;
+    day = 1;
+    actions = 6;
+    energyText.innerText = energy;
+    happyText.innerText = happiness;
+    fullText.innerText = full;
+    bondText.innerText = bond;
+    daysText.innerText = day;
+    actionsText.innerText = actions;
+    cat = cats[Math.floor(Math.random() * cats.length)];
+    start.classList.add("hidden");
+    restart.classList.remove("hidden");
+    textOne.innerText = `Thank you for agreeing to join the cat distribution system. Your cat is called ${cat.name}. Their trait is ${cat.type}.`
+    textTwo.innerText = `You will need to feed, pet, play and care for them to improve your bond. Good luck!`;
+    image.innerHTML = `${catPic}<h2>${cat.name}</h2>`;
+    // Means that you can't click the feed, pet, play, care buttons until the game has started to avoid issues;
+    interact1.disabled = false;
+    interact2.disabled = false;
+    interact3.disabled = false;
+    interact4.disabled = false;
+    // catPic.style.fill = cat.colour;
+    // I want to find a way to style the svg fill colour depending on which cat is selected
+}
+
+// Feed action
+function feed() {
+    if (actions > 0) {
+        if (full < 100) {
+            full += (cat.points[0] * cat.multiplier[0]);
+            actions--;
+            fullText.innerText = full;
+            actionsText.innerText = actions;
+            textOne.innerText = `You fed ${cat.name}.`;
+            textTwo.innerText = cat.interactText[0];
+        } else {
+            textOne.innerText = `${cat.name} is full.`;
+            textTwo.innerText = "Please try another action.";
+        }
+    } else {
+        textOne.innerText = "Oh dear, you have run out of actions.";
+        textTwo.innerText = "All you can do is end the day and see whether you've done enough to improve your bond with your cat. Press 'End Day' below.";
+        end.classList.remove('hidden');
+    } //refactor this statement into a function perhaps? As it's repeated for all functions
+}
+
+// Pet action
+function pet() {
+    if (actions > 0) {
+        if (happiness < 100) {
+            happiness += (Math.floor(cat.points[1] * cat.multiplier[1]));
+            actions--;
+            happyText.innerText = happiness;
+            actionsText.innerText = actions;
+            textOne.innerText = `You pet ${cat.name}.`
+            textTwo.innerText = cat.interactText[1];
+        } else {
+            textOne.innerText = `${cat.name} is as happy as they can be.`;
+            textTwo.innerText = "Please try another action.";
+        }
+    } else {
+        textOne.innerText = "Oh dear, you have run out of actions.";
+        textTwo.innerText = `All you can do is end the day and see whether you've done enough to improve your bond with ${cat.name}. Press 'End Day' below.`;
+        end.classList.remove('hidden');
+    }
+}
+
+// Play action
+function play() {
+    if (actions > 0) {
+        if (energy > 0) {
+            energy -= (cat.points[2] * cat.multiplier[2]);
+            actions--;
+            energyText.innerText = energy;
+            actionsText.innerText = actions;
+            textOne.innerText = `You played with ${cat.name}.`
+            textTwo.innerText = cat.interactText[2];
+        } else {
+            textOne.innerText = `${cat.name} has played to their heart's content and is now exhausted.`;
+            textTwo.innerText = "Please try another action.";
+        }
+    } else {
+        textOne.innerText = "Oh dear, you have run out of actions.";
+        textTwo.innerText = "All you can do is end the day and see whether you've done enough to improve your bond with your cat. Press 'End Day' below.";
+        end.classList.remove('hidden');
+    }
+}
+
+// Care action
+function care() { // I think this function would work better if it modified a health stat, which I previously removed. If I had more time, I'd add it back in and replace energy with health in the function below.
+    if (actions > 0) {
+        if (energy < 100) {
+            energy += (cat.points[3] * cat.multiplier[3]);
+            actions--;
+            energyText.innerText = energy;
+            actionsText.innerText = actions;
+            textOne.innerText = `You cared for ${cat.name} and restored some of their energy.`
+            textTwo.innerText = cat.interactText[3];
+        } else {
+            textOne.innerText = `${cat.name} has enough energy and they don't require any care.`;
+            textTwo.innerText = "Please try another action.";
+        }
+    } else {
+            textOne.innerText = "Oh dear, you have run out of actions.";
+            textTwo.innerText = "All you can do is end the day and see whether you've done enough to improve your bond with your cat. Press 'End Day' below.";
+            end.classList.remove('hidden');
+    }
+}
+
+// End day button action
+function endDay() {
+    bond += (Math.floor(((happiness + full) - energy) * 0.2));
+    bondText.innerText = bond;
+    end.classList.add('hidden');
+    interact1.disabled = true;
+    interact2.disabled = true;
+    interact3.disabled = true;
+    interact4.disabled = true;
+    if (bond < 100) {
+        textOne.innerHTML = `<strong>End of Day ${day} summary:</strong>`
+        textTwo.innerText = `You have increased ${cat.name}'s stats as follows: ${(energy - 50)} energy, ${(happiness - 0)} happiness and ${(full - 50)} fullness. Your bond has increased to ${bond}. You need ${(100-bond)} points to win the game. Press 'Next Day' to continue!`
+        next.classList.remove('hidden');
+    } else if (bond >= 100) {
+        textOne.innerText = `Congratulations, you and ${cat.name} have reached a bond of ${bond}.`;
+        textTwo.innerText = `You won the game in ${day} days. Do you think you can beat your score? Press 'Restart' to try again!`
+    }
+}
+
+// Next day button action
+function nextDay() {
+    day++;
+    actions = 6;
+    energy = 100;
+    full -= 50;
+    happiness -= Math.floor((Math.random() * 30));
+    daysText.innerText = day;
+    actionsText.innerText = actions;
+    energyText.innerText = energy;
+    fullText.innerText = full;
+    happyText.innerText = happiness;
+    textOne.innerText = `Today is Day ${day}.`;
+    textTwo.innerText = `How will you take care of ${cat.name} today?`
+    next.classList.add('hidden');
+    interact1.disabled = false;
+    interact2.disabled = false;
+    interact3.disabled = false;
+    interact4.disabled = false;
+}
+
+// function noActions() {
+//     textOne.innerText = "Oh dear, you have run out of actions.";
+//     textTwo.innerText = "All you can do is end the day and see whether you've done enough to improve your bond with your cat. Press 'End Day' below.";
+//     end.classList.remove('hidden');
+// }
+// This function isn't working the way I'd hoped to avoid having to write out the same code for all four interaction functions. If I had more time, I'd look at why this isn't working as I think it should...
 
 // The below was an attempt to refactor my code to avoid repeating the if (actions > 0) code but I wasn't sure how to make it work with the variables that have values assigned to them
 
@@ -142,156 +298,3 @@ interact4.disabled = true;
 // function feed() {
 //     update(stats[0], 0);
 // }
-
-function startGame() {
-    energy = 50;
-    happiness = 0;
-    full = 50;
-    bond = 0;
-    day = 1;
-    actions = 6;
-    energyText.innerText = energy;
-    happyText.innerText = happiness;
-    fullText.innerText = full;
-    bondText.innerText = bond;
-    daysText.innerText = day;
-    actionsText.innerText = actions;
-    cat = cats[Math.floor(Math.random() * cats.length)];
-    start.classList.add("hidden");
-    restart.classList.remove("hidden");
-    textOne.innerText = `Thank you for agreeing to join the cat distribution system. Your cat is called ${cat.name}. Their trait is ${cat.type}.`
-    textTwo.innerText = `You will need to feed, pet, play and care for them to improve your bond. Good luck!`;
-    image.innerHTML = `${catPic}<h2>${cat.name}</h2>`;
-    // Means that you can't click the feed, pet, play, care buttons until the game has started to avoid issues;
-    interact1.disabled = false;
-    interact2.disabled = false;
-    interact3.disabled = false;
-    interact4.disabled = false;
-    // catPic.style.fill = cat.colour;
-    // I want to find a way to style the svg fill colour depending on which cat is selected
-}
-
-function feed() {
-    if (actions > 0) {
-        if (full < 100) {
-            full += (cat.points[0] * cat.multiplier[0]);
-            actions--;
-            fullText.innerText = full;
-            actionsText.innerText = actions;
-            textOne.innerText = `You fed ${cat.name}.`;
-            textTwo.innerText = cat.interactText[0];
-        } else {
-            textOne.innerText = `${cat.name} is full.`;
-            textTwo.innerText = "Please try another action.";
-        }
-    } else {
-        textOne.innerText = "Oh dear, you have run out of actions.";
-        textTwo.innerText = "All you can do is end the day and see whether you've done enough to improve your bond with your cat. Press 'End Day' below.";
-        end.classList.remove('hidden');
-    } //refactor this statement into a function perhaps? As it's repeated for all functions
-}
-
-function pet() {
-    if (actions > 0) {
-        if (happiness < 100) {
-            happiness += (Math.floor(cat.points[1] * cat.multiplier[1]));
-            actions--;
-            happyText.innerText = happiness;
-            actionsText.innerText = actions;
-            textOne.innerText = `You pet ${cat.name}.`
-            textTwo.innerText = cat.interactText[1];
-        } else {
-            textOne.innerText = `${cat.name} is as happy as they can be.`;
-            textTwo.innerText = "Please try another action.";
-        }
-    } else {
-        textOne.innerText = "Oh dear, you have run out of actions.";
-        textTwo.innerText = `All you can do is end the day and see whether you've done enough to improve your bond with ${cat.name}. Press 'End Day' below.`;
-        end.classList.remove('hidden');
-    }
-}
-
-function play() {
-    if (actions > 0) {
-        if (energy > 0) {
-            energy -= (cat.points[2] * cat.multiplier[2]);
-            actions--;
-            energyText.innerText = energy;
-            actionsText.innerText = actions;
-            textOne.innerText = `You played with ${cat.name}.`
-            textTwo.innerText = cat.interactText[2];
-        } else {
-            textOne.innerText = `${cat.name} has played to their heart's content and is now exhausted.`;
-            textTwo.innerText = "Please try another action.";
-        }
-    } else {
-        textOne.innerText = "Oh dear, you have run out of actions.";
-        textTwo.innerText = "All you can do is end the day and see whether you've done enough to improve your bond with your cat. Press 'End Day' below.";
-        end.classList.remove('hidden');
-    }
-}
-
-function care() { // I think this function would work better if it modified a health stat, which I previously removed. If I had more time, I'd add it back in and replace energy with health in the function below.
-    if (actions > 0) {
-        if (energy < 100) {
-            energy += (cat.points[3] * cat.multiplier[3]);
-            actions--;
-            energyText.innerText = energy;
-            actionsText.innerText = actions;
-            textOne.innerText = `You cared for ${cat.name} and restored some of their energy.`
-            textTwo.innerText = cat.interactText[3];
-        } else {
-            textOne.innerText = `${cat.name} has enough energy and they don't require any care.`;
-            textTwo.innerText = "Please try another action.";
-        }
-    } else {
-            textOne.innerText = "Oh dear, you have run out of actions.";
-            textTwo.innerText = "All you can do is end the day and see whether you've done enough to improve your bond with your cat. Press 'End Day' below.";
-            end.classList.remove('hidden');
-    }
-}
-
-function endDay() {
-    bond += (Math.floor(((happiness + full) - energy) * 0.2));
-    bondText.innerText = bond;
-    end.classList.add('hidden');
-    interact1.disabled = true;
-    interact2.disabled = true;
-    interact3.disabled = true;
-    interact4.disabled = true;
-    if (bond < 100) {
-        textOne.innerHTML = `<strong>End of Day ${day} summary:</strong>`
-        textTwo.innerText = `You have increased ${cat.name}'s stats as follows: ${(energy - 50)} energy, ${(happiness - 0)} happiness and ${(full - 50)} fullness. Your bond has increased to ${bond}. You need ${(100-bond)} points to win the game. Press 'Next Day' to continue!`
-        next.classList.remove('hidden');
-    } else if (bond >= 100) {
-        textOne.innerText = `Congratulations, you and ${cat.name} have reached a bond of ${bond}.`;
-        textTwo.innerText = `You won the game in ${day} days. Do you think you can beat your score? Press 'Restart' to try again!`
-    }
-}
-
-function newDay() {
-    day++;
-    actions = 6;
-    energy = 100;
-    full -= 50;
-    happiness -= Math.floor((Math.random() * 30));
-    daysText.innerText = day;
-    actionsText.innerText = actions;
-    energyText.innerText = energy;
-    fullText.innerText = full;
-    happyText.innerText = happiness;
-    textOne.innerText = `Today is Day ${day}.`;
-    textTwo.innerText = `How will you take care of ${cat.name} today?`
-    next.classList.add('hidden');
-    interact1.disabled = false;
-    interact2.disabled = false;
-    interact3.disabled = false;
-    interact4.disabled = false;
-}
-
-// function noActions() {
-//     textOne.innerText = "Oh dear, you have run out of actions.";
-//     textTwo.innerText = "All you can do is end the day and see whether you've done enough to improve your bond with your cat. Press 'End Day' below.";
-//     end.classList.remove('hidden');
-// }
-// This function isn't working the way I'd hoped to avoid having to write out the same code for all four interaction functions. If I had more time, I'd look at why this isn't working as I think it should...
