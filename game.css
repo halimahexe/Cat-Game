@@ -22,7 +22,7 @@ h1 {
 
 /* Overall Container */
 .flex-container {
-    height: 550px;
+    height: 575px;
     width: 500px;
     border: 1px solid;
     border-radius: 10px;
@@ -58,7 +58,7 @@ h1 {
 
 /* Cat window with interactive buttons */
 .cat-interaction {
-    height: 260px;
+    height: 275px;
     width: 500px;
     display: flex;
     flex: 1 1 auto;
@@ -116,7 +116,7 @@ h1 {
 /* Game text section */
 .text {
     width: 500px;
-    height: 250px;
+    height: 260px;
     text-align: center;
     background-color: rgb(127, 0, 255);
     color: #ffffff;
@@ -161,7 +161,6 @@ button:hover {
 @media screen and (max-width: 500px) {
     h1 {
         font-size: 1.7rem;
-        top: 0;
     }
 
     .flex-container {

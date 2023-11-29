@@ -101,7 +101,7 @@ function startGame() {
     start.classList.add("hidden");
     restart.classList.remove("hidden");
     textOne.innerText = `Thank you for agreeing to join the cat distribution system. Your cat is called ${cat.name}. Their trait is ${cat.type}.`
-    textTwo.innerText = `You will need to feed, pet, play and care for them to improve your bond. Good luck!`;
+    textTwo.innerText = `${cat.typeText} You will need to feed, pet, play and care for them to improve your bond. Good luck!`;
     image.innerHTML = `${catPic}<h2>${cat.name}</h2>`;
     // Means that you can't click the feed, pet, play, care buttons until the game has started to avoid issues;
     interact1.disabled = false;
