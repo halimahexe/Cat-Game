@@ -40,24 +40,30 @@ const cats = [{
     type: "needy",
     typeText: "A needy cat will need more attention and care than other cats and you will get less points for your actions overall.",
     interactions: {"feed": [25, 1], "pet": [10, 1.5], "play": [15, 1], "care": [10, 0.25]}, // interactions now have points and multipliers assigned to each type of interaction for readability
-    interactText: ["Enzo screams at you before you've prepared his meal and gobbles it up as soon as you set it down. He looks at you expectantly for more.",
-"Enzo purrs as you pet him, rubbing his cheeks against your hand.",
-"Enzo burbles as you wave a feather toy at him, eyeing it up before he pounces and catches it with his paws.",
-"Enzo eyes you warily as you bring out the claw trimmers before tucking his paws under his body and out of reach."],
+    interactText: {"feed": "Enzo screams at you before you've prepared his meal and gobbles it up as soon as you set it down. He looks at you expectantly for more.",
+        "pet": "Enzo purrs as you pet him, rubbing his cheeks against your hand.",
+        "play": "Enzo burbles as you wave a feather toy at him, eyeing it up before he pounces and catches it with his paws.",
+        "care": "Enzo eyes you warily as you bring out the claw trimmers before tucking his paws under his body and out of reach."},
     colour: "#000000"
 }, {
     name: "Cleo",
     type: "aloof",
     typeText: "An aloof cat pretends that humans are beneath them but they enjoy your care nonetheless. You will get less points for some actions and more for others. It's your job to figure out which!",
     interactions: {"feed": [25, 1], "pet": [10, 0.5], "play": [15, 1], "care": [10, 0.5]},
-    interactText: ["Cleo is pleased that you deigned to finally feed her.","Cleo has decided to allow you to touch her fluffyness ... for now.","Cleo is excited to use her sharp claws to destroy her prey.","Cleo is displeased by your attempts to coerce her into submission, even if it is for 'the greater good', whatever that is..."],
+    interactText: {"feed": "Cleo is pleased that you deigned to finally feed her.",
+        "pet": "Cleo has decided to allow you to touch her fluffyness ... for now.",
+        "play": "Cleo is excited to use her sharp claws to destroy her prey.",
+        "care": "Cleo is displeased by your attempts to coerce her into submission, even if it is for 'the greater good', whatever that means..."},
     colour: "#E3963E"
 }, {
     name: "Mungo",
     type: "friendly",
     typeText: "A friendly cat is uncomplicated in their desire for love and affection and will give you the same points for all actions.",
     interactions: {"feed": [25, 1], "pet": [15, 1], "play": [15, 1], "care": [15, 1]},
-    interactText: ["Mungo is happy you fed him.", "Mungo purrs as you stroke his soft fur. He's blissful.", "Mungo waits for the feather toy to be within paw's reach and bats it away.", "Mungo is happy to be taken care of."],
+    interactText: {"feed": "Mungo is happy you fed him.",
+        "pet": "Mungo purrs as you stroke his soft fur. He's blissful.",
+        "play": "Mungo waits for the feather toy to be within paw's reach and bats it away.",
+        "care": "Mungo is happy to be taken care of."},
     colour: "#808080"
 }];
 
@@ -114,7 +120,7 @@ function feed() {
             fullText.innerText = full;
             actionsText.innerText = actions;
             textOne.innerText = `You fed ${cat.name}.`;
-            textTwo.innerText = cat.interactText[0];
+            textTwo.innerText = cat.interactText["feed"];
         } else {
             textOne.innerText = `${cat.name} is full.`;
             textTwo.innerText = "Please try another action.";
@@ -131,7 +137,7 @@ function pet() {
             happyText.innerText = happiness;
             actionsText.innerText = actions;
             textOne.innerText = `You pet ${cat.name}.`
-            textTwo.innerText = cat.interactText[1];
+            textTwo.innerText = cat.interactText["pet"];
         } else {
             textOne.innerText = `${cat.name} is as happy as they can be.`;
             textTwo.innerText = "Please try another action.";
@@ -148,7 +154,7 @@ function play() {
             energyText.innerText = energy;
             actionsText.innerText = actions;
             textOne.innerText = `You played with ${cat.name}.`
-            textTwo.innerText = cat.interactText[2];
+            textTwo.innerText = cat.interactText["play"];
         } else {
             textOne.innerText = `${cat.name} has played to their heart's content and is now exhausted.`;
             textTwo.innerText = "Please try another action.";
@@ -165,7 +171,7 @@ function care() { // I think this function would work better if it modified a he
             energyText.innerText = energy;
             actionsText.innerText = actions;
             textOne.innerText = `You cared for ${cat.name} and restored some of their energy.`
-            textTwo.innerText = cat.interactText[3];
+            textTwo.innerText = cat.interactText["care"];
         } else {
             textOne.innerText = `${cat.name} has enough energy and they don't require any care.`;
             textTwo.innerText = "Please try another action.";
