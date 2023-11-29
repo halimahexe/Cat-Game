@@ -11,7 +11,7 @@ const image = document.querySelector('#image');
 const catPic = '<svg xmlns="http://www.w3.org/2000/svg" height="5rem" viewBox="0 0 576 512" alt="icon of cat"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M320 192h17.1c22.1 38.3 63.5 64 110.9 64c11 0 21.8-1.4 32-4v4 32V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V339.2L280 448h56c17.7 0 32 14.3 32 32s-14.3 32-32 32H192c-53 0-96-43-96-96V192.5c0-16.1-12-29.8-28-31.8l-7.9-1c-17.5-2.2-30-18.2-27.8-35.7s18.2-30 35.7-27.8l7.9 1c48 6 84.1 46.8 84.1 95.3v85.3c34.4-51.7 93.2-85.8 160-85.8zm160 26.5v0c-10 3.5-20.8 5.5-32 5.5c-28.4 0-54-12.4-71.6-32h0c-3.7-4.1-7-8.5-9.9-13.2C357.3 164 352 146.6 352 128v0V32 12 10.7C352 4.8 356.7 .1 362.6 0h.2c3.3 0 6.4 1.6 8.4 4.2l0 .1L384 21.3l27.2 36.3L416 64h64l4.8-6.4L512 21.3 524.8 4.3l0-.1c2-2.6 5.1-4.2 8.4-4.2h.2C539.3 .1 544 4.8 544 10.7V12 32v96c0 17.3-4.6 33.6-12.6 47.6c-11.3 19.8-29.6 35.2-51.4 42.9zM432 128a16 16 0 1 0 -32 0 16 16 0 1 0 32 0zm48 16a16 16 0 1 0 0-32 16 16 0 1 0 0 32z"/></svg>'
 
 // Buttons
-// const interactBtns = document.querySelectorAll('[id^="interact-btn"]'); // This was used for my attempt to make my code less repetitive
+const interactBtns = document.querySelectorAll('[id^="interact-btn"]'); // This was used for my attempt to make my code less repetitive
 const interact1 = document.querySelector("#interact-btn1");
 const interact2 = document.querySelector("#interact-btn2");
 const interact3 = document.querySelector("#interact-btn3");
@@ -67,18 +67,25 @@ const cats = [{
     colour: "#808080"
 }];
 
-// const interactFunc = {interact1: feed, interact2: pet, interact3: play, interact4: care};
-// I tried to create an object of functions that I could pass through an event listener to run functions depending on id of button clicked, but it didn't run the function
+// Object of functions to run depending on which button is clicked
+const interactFunc = {interact1: feed, interact2: pet, interact3: play, interact4: care};
 
 // Click listeners lead to functions
-interact1.onclick = feed;
-interact2.onclick = pet;
-interact3.onclick = play;
-interact4.onclick = care;
 start.onclick = startGame;
 end.onclick = endDay;
 next.onclick = nextDay;
 restart.onclick = startGame;
+
+// Refactoring so I only run feed, pet, play, care functions if action > 0
+interactBtns.forEach(function(interactBtn) {
+    interactBtn.addEventListener('click', function(event) {
+        let num = event.target.id.match(/\d/);
+
+        if (actions > 0) {
+            interactFunc[`interact${num}`]();
+        } else noActions();
+    })
+});
 
 // Disabling buttons before start to avoid game errors
 interact1.disabled = true;
@@ -116,70 +123,62 @@ function startGame() {
 
 // Feed action
 function feed() {
-    if (actions > 0) {
-        if (full < 100) {
-            full += (cat.interactions["feed"][0] * cat.interactions["feed"][1]);
-            actions--;
-            fullText.innerText = full;
-            actionsText.innerText = actions;
-            textOne.innerText = `You fed ${cat.name}.`;
-            textTwo.innerText = cat.interactText["feed"];
-        } else {
-            textOne.innerText = `${cat.name} is full.`;
-            textTwo.innerText = "Please try another action.";
-        }
-    } else noActions();
+    if (full < 100) {
+        full += (cat.interactions["feed"][0] * cat.interactions["feed"][1]);
+        actions--;
+        fullText.innerText = full;
+        actionsText.innerText = actions;
+        textOne.innerText = `You fed ${cat.name}.`;
+        textTwo.innerText = cat.interactText["feed"];
+    } else {
+        textOne.innerText = `${cat.name} is full.`;
+        textTwo.innerText = "Please try another action.";
+    }
 }
 
 // Pet action
 function pet() {
-    if (actions > 0) {
-        if (happiness < 100) {
-            happiness += (Math.floor(cat.interactions["pet"][0] * cat.interactions["pet"][1]));
-            actions--;
-            happyText.innerText = happiness;
-            actionsText.innerText = actions;
-            textOne.innerText = `You pet ${cat.name}.`
-            textTwo.innerText = cat.interactText["pet"];
-        } else {
-            textOne.innerText = `${cat.name} is as happy as they can be.`;
-            textTwo.innerText = "Please try another action.";
-        }
-    } else noActions()
+    if (happiness < 100) {
+        happiness += (Math.floor(cat.interactions["pet"][0] * cat.interactions["pet"][1]));
+        actions--;
+        happyText.innerText = happiness;
+        actionsText.innerText = actions;
+        textOne.innerText = `You pet ${cat.name}.`
+        textTwo.innerText = cat.interactText["pet"];
+    } else {
+        textOne.innerText = `${cat.name} is as happy as they can be.`;
+        textTwo.innerText = "Please try another action.";
+    }
 }
 
 // Play action
 function play() {
-    if (actions > 0) {
-        if (energy > 0) {
-            energy -= (cat.interactions["play"][0] * cat.interactions["play"][1]);
-            actions--;
-            energyText.innerText = energy;
-            actionsText.innerText = actions;
-            textOne.innerText = `You played with ${cat.name}.`
-            textTwo.innerText = cat.interactText["play"];
-        } else {
-            textOne.innerText = `${cat.name} has played to their heart's content and is now exhausted.`;
-            textTwo.innerText = "Please try another action.";
-        }
-    } else noActions()
+    if (energy > 0) {
+        energy -= (cat.interactions["play"][0] * cat.interactions["play"][1]);
+        actions--;
+        energyText.innerText = energy;
+        actionsText.innerText = actions;
+        textOne.innerText = `You played with ${cat.name}.`
+        textTwo.innerText = cat.interactText["play"];
+    } else {
+        textOne.innerText = `${cat.name} has played to their heart's content and is now exhausted.`;
+        textTwo.innerText = "Please try another action.";
+    }
 }
 
 // Care action
 function care() { // I think this function would work better if it modified a health stat, which I previously removed. If I had more time, I'd add it back in and replace energy with health in the function below.
-    if (actions > 0) {
-        if (energy < 100) {
-            energy += (cat.interactions["care"][0] * cat.interactions["care"][1]);
-            actions--;
-            energyText.innerText = energy;
-            actionsText.innerText = actions;
-            textOne.innerText = `You cared for ${cat.name} and restored some of their energy.`
-            textTwo.innerText = cat.interactText["care"];
-        } else {
-            textOne.innerText = `${cat.name} has enough energy and they don't require any care.`;
-            textTwo.innerText = "Please try another action.";
-        }
-    } else noActions()
+    if (energy < 100) {
+        energy += (cat.interactions["care"][0] * cat.interactions["care"][1]);
+        actions--;
+        energyText.innerText = energy;
+        actionsText.innerText = actions;
+        textOne.innerText = `You cared for ${cat.name} and restored some of their energy.`
+        textTwo.innerText = cat.interactText["care"];
+    } else {
+        textOne.innerText = `${cat.name} has enough energy and they don't require any care.`;
+        textTwo.innerText = "Please try another action.";
+    }
 }
 
 // End day button action
@@ -234,28 +233,28 @@ function noActions() {
 //     stat: full,
 //     statText: `${fullText}`,
 //     one: `You fed ${cat.name}.`,
-//     two: cat.interactText[0],
+//     two: cat.interactText["feed"],
 //     altOne: `${cat.name} is full.`,
 //     altTwo: "Please try another action."
 // }, {
 //     stat: happiness,
 //     statText: `${happyText}`,
 //     one: `You pet ${cat.name}.`,
-//     two: cat.interactText[1],
-//     altOne: `${cat.name} is full.`,
+//     two: cat.interactText["pet"],
+//     altOne: `${cat.name} is as happy as they can be.`,
 //     altTwo: "Please try another action."
 // }, {
 //     stat: energy,
 //     statText: `${energyText}`,
 //     one: `You played with ${cat.name}.`,
-//     two: cat.interactText[2],
+//     two: cat.interactText["play"],
 //     altOne: `${cat.name} has played to their heart's content and is now exhausted.`,
 //     altTwo: "Please try another action."
 // }, {
 //     stat: energy,
 //     statText: `${energyText}`,
 //     one: `You cared for ${cat.name} and restored some of their energy.`,
-//     two: cat.interactText[3],
+//     two: cat.interactText["care"],
 //     altOne: `${cat.name} has enough energy and they don't require any care.`,
 //     altTwo: "Please try another action."
 // }, ]
@@ -283,16 +282,3 @@ function noActions() {
 // function feed() {
 //     update(stats[0], 0);
 // }
-
-// Another attempt to avoid repeating the if (actions > 0) code in every function
-
-// interactBtns.forEach(function(interactBtn) {
-//     interactBtn.addEventListener('click', function(event) {
-//         let num = event.target.id.match(/\d/);
-
-//         if (actions > 0) {
-//             interactFunc[`interact${num}`];
-//             console.log(interactFunc[`interact${num}`]); // Console logging shows me the function but for some reason the function isn't running?
-//         } else noActions();
-//     })
-// });
