@@ -108,8 +108,7 @@ function startGame() {
     interact2.disabled = false;
     interact3.disabled = false;
     interact4.disabled = false;
-    // catPic.style.fill = cat.colour;
-    // I want to find a way to style the svg fill colour depending on which cat is selected
+    document.querySelector('svg').style.fill = cat.colour;
 }
 
 // Feed action
