@@ -119,11 +119,7 @@ function feed() {
             textOne.innerText = `${cat.name} is full.`;
             textTwo.innerText = "Please try another action.";
         }
-    } else {
-        textOne.innerText = "Oh dear, you have run out of actions.";
-        textTwo.innerText = "All you can do is end the day and see whether you've done enough to improve your bond with your cat. Press 'End Day' below.";
-        end.classList.remove('hidden');
-    } //refactor this statement into a function perhaps? As it's repeated for all functions
+    } else noActions();
 }
 
 // Pet action
@@ -140,11 +136,7 @@ function pet() {
             textOne.innerText = `${cat.name} is as happy as they can be.`;
             textTwo.innerText = "Please try another action.";
         }
-    } else {
-        textOne.innerText = "Oh dear, you have run out of actions.";
-        textTwo.innerText = `All you can do is end the day and see whether you've done enough to improve your bond with ${cat.name}. Press 'End Day' below.`;
-        end.classList.remove('hidden');
-    }
+    } else noActions()
 }
 
 // Play action
@@ -161,11 +153,7 @@ function play() {
             textOne.innerText = `${cat.name} has played to their heart's content and is now exhausted.`;
             textTwo.innerText = "Please try another action.";
         }
-    } else {
-        textOne.innerText = "Oh dear, you have run out of actions.";
-        textTwo.innerText = "All you can do is end the day and see whether you've done enough to improve your bond with your cat. Press 'End Day' below.";
-        end.classList.remove('hidden');
-    }
+    } else noActions()
 }
 
 // Care action
@@ -182,11 +170,7 @@ function care() { // I think this function would work better if it modified a he
             textOne.innerText = `${cat.name} has enough energy and they don't require any care.`;
             textTwo.innerText = "Please try another action.";
         }
-    } else {
-            textOne.innerText = "Oh dear, you have run out of actions.";
-            textTwo.innerText = "All you can do is end the day and see whether you've done enough to improve your bond with your cat. Press 'End Day' below.";
-            end.classList.remove('hidden');
-    }
+    } else noActions()
 }
 
 // End day button action
@@ -229,12 +213,11 @@ function nextDay() {
     interact4.disabled = false;
 }
 
-// function noActions() {
-//     textOne.innerText = "Oh dear, you have run out of actions.";
-//     textTwo.innerText = "All you can do is end the day and see whether you've done enough to improve your bond with your cat. Press 'End Day' below.";
-//     end.classList.remove('hidden');
-// }
-// This function isn't working the way I'd hoped to avoid having to write out the same code for all four interaction functions. If I had more time, I'd look at why this isn't working as I think it should...
+function noActions() {
+    textOne.innerText = "Oh dear, you have run out of actions.";
+    textTwo.innerText = "All you can do is end the day and see whether you've done enough to improve your bond with your cat. Press 'End Day' below.";
+    end.classList.remove('hidden');
+}
 
 // The below was an attempt to refactor my code to avoid repeating the if (actions > 0) code but I wasn't sure how to make it work with the variables that have values assigned to them
 
