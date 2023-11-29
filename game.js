@@ -39,31 +39,25 @@ const cats = [{
     name: "Enzo",
     type: "needy",
     typeText: "A needy cat will need more attention and care than other cats and you will get less points for your actions overall.",
-    interactions: ["feed", "pet", "play", "care"],
+    interactions: {"feed": [25, 1], "pet": [10, 1.5], "play": [15, 1], "care": [10, 0.25]}, // interactions now have points and multipliers assigned to each type of interaction for readability
     interactText: ["Enzo screams at you before you've prepared his meal and gobbles it up as soon as you set it down. He looks at you expectantly for more.",
 "Enzo purrs as you pet him, rubbing his cheeks against your hand.",
 "Enzo burbles as you wave a feather toy at him, eyeing it up before he pounces and catches it with his paws.",
 "Enzo eyes you warily as you bring out the claw trimmers before tucking his paws under his body and out of reach."],
-    points: [25, 10, 15, 5], // Get less points for 'care' because that entails discomfort
-    multiplier: [1, 1.5, 1, 0.25],
     colour: "#000000"
 }, {
     name: "Cleo",
     type: "aloof",
     typeText: "An aloof cat pretends that humans are beneath them but they enjoy your care nonetheless. You will get less points for some actions and more for others. It's your job to figure out which!",
-    interactions: ["feed", "pet", "play", "care"],
+    interactions: {"feed": [25, 1], "pet": [10, 0.5], "play": [15, 1], "care": [10, 0.5]},
     interactText: ["Cleo is pleased that you deigned to finally feed her.","Cleo has decided to allow you to touch her fluffyness ... for now.","Cleo is excited to use her sharp claws to destroy her prey.","Cleo is displeased by your attempts to coerce her into submission, even if it is for 'the greater good', whatever that is..."],
-    points: [25, 10, 15, 10],
-    multiplier: [1, 0.5, 1, 0.5],
     colour: "#E3963E"
 }, {
     name: "Mungo",
     type: "friendly",
     typeText: "A friendly cat is uncomplicated in their desire for love and affection and will give you the same points for all actions.",
-    interactions: ["feed", "pet", "play", "care"],
-    interactText: ["Mungo is happy you fed him.", "Mungo purrs as you stroke his soft fur. He's blissful.", "Mungo waits for the feather toy to be within paw's reach and bats it away.", "Mungo is happy to be taken care of.",],
-    points: [25, 15, 15, 15], // Friendly cats give the same amount of points for everything
-    multiplier: [1, 1, 1, 1],
+    interactions: {"feed": [25, 1], "pet": [15, 1], "play": [15, 1], "care": [15, 1]},
+    interactText: ["Mungo is happy you fed him.", "Mungo purrs as you stroke his soft fur. He's blissful.", "Mungo waits for the feather toy to be within paw's reach and bats it away.", "Mungo is happy to be taken care of."],
     colour: "#808080"
 }];
 
@@ -115,7 +109,7 @@ function startGame() {
 function feed() {
     if (actions > 0) {
         if (full < 100) {
-            full += (cat.points[0] * cat.multiplier[0]);
+            full += (cat.interactions["feed"][0] * cat.interactions["feed"][1]);
             actions--;
             fullText.innerText = full;
             actionsText.innerText = actions;
@@ -136,7 +130,7 @@ function feed() {
 function pet() {
     if (actions > 0) {
         if (happiness < 100) {
-            happiness += (Math.floor(cat.points[1] * cat.multiplier[1]));
+            happiness += (Math.floor(cat.interactions["pet"][0] * cat.interactions["pet"][1]));
             actions--;
             happyText.innerText = happiness;
             actionsText.innerText = actions;
@@ -157,7 +151,7 @@ function pet() {
 function play() {
     if (actions > 0) {
         if (energy > 0) {
-            energy -= (cat.points[2] * cat.multiplier[2]);
+            energy -= (cat.interactions["play"][0] * cat.interactions["play"][1]);
             actions--;
             energyText.innerText = energy;
             actionsText.innerText = actions;
@@ -178,7 +172,7 @@ function play() {
 function care() { // I think this function would work better if it modified a health stat, which I previously removed. If I had more time, I'd add it back in and replace energy with health in the function below.
     if (actions > 0) {
         if (energy < 100) {
-            energy += (cat.points[3] * cat.multiplier[3]);
+            energy += (cat.interactions["care"][0] * cat.interactions["care"][1]);
             actions--;
             energyText.innerText = energy;
             actionsText.innerText = actions;
